@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+      - name: multitool
+        image: praqma/network-multitool:latest
+        env:
+        - name: HTTP_PORT
+          value: "1180" # Меняем порт для multitool, чтобы избежать конфликта https://github.com/wbitt/Network-MultiTool#configurable-http-and-https-ports

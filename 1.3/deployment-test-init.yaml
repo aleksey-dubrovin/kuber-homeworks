@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-with-init
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-init-app
+  template:
+    metadata:
+      labels:
+        app: nginx-init-app
+    spec:
+      initContainers:
+      - name: wait-for-service
+        image: busybox:latest
+        command: 
+          - sh
+          - -c
+          - |
+            echo "Checking for service test-service..."
+            while true; do
+              if nslookup test-service 2>/dev/null | grep -q "Address: 10"; then
+                echo "Service test-service found!"
+                break
+              fi
+              echo "Waiting for test-service..."
+              sleep 2
+            done
+      containers:
+      - name: nginx
+        image: nginx:latest
