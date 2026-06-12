@@ -47,3 +47,8 @@ https://github.com/aleksey-dubrovin/yandex-k8s.git.
 
 ![alt text](image-8.png)
 ---
+
+В логах контейнера видим вывод в логах
+
+![alt text](image-9.png)
+---
