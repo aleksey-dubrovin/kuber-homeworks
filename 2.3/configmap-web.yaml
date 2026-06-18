@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-content
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Привет из ConfigMap</title>
+    </head>
+    <body>
+      <h1>Это страница, подключенная через ConfigMap!</h1>
+      <p>Kubernetes — это здорово!</p>
+      <p>Спасибо Netology!</p>
+    </body>
+    </html>
