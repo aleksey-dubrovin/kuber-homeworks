@@ -1,0 +1,21 @@
+replicaCount: 1
+image:
+  repository: registry.basealt.ru/p11/apache2
+  pullPolicy: IfNotPresent
+service:
+  type: ClusterIP
+  port: 80
+ingress:
+  enabled: true
+  className: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+  tls:
+    - hosts:
+        - "158.160.169.242.nip.io"
+      secretName: tls-secret
+  host: "158.160.169.242.nip.io"
+configmap:
+  enabled: true
+httpRoute:
+  enabled: false

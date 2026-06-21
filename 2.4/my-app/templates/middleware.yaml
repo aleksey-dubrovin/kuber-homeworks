@@ -1,0 +1,14 @@
+{{- if .Values.ingress.enabled -}}
+{{- range .Values.ingress.paths }}
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .middlewareName }}
+  namespace: {{ .namespace }}
+spec:
+  stripPrefix:
+    prefixes:
+      - {{ .path }}
+---
+{{- end }}
+{{- end }}

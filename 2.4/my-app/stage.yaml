@@ -1,0 +1,13 @@
+# Конфигурация для stage окружения
+releaseName: app-stage
+namespace: stage
+replicaCount: 1
+image:
+  tag: "2.4.67"
+ingress:
+  paths:
+    - path: /stage
+      serviceName: app-stage-my-app
+      servicePort: 80
+      namespace: stage
+      middlewareName: strip-stage-prefix

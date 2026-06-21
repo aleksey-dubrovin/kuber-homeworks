@@ -1,0 +1,33 @@
+{{- if .Values.ingress.enabled -}}
+{{- $ingress := .Values.ingress -}}
+{{- range $ingress.paths }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-{{ .namespace }}
+  namespace: {{ .namespace }}
+  annotations:
+    {{- range $key, $value := $ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+    traefik.ingress.kubernetes.io/router.middlewares: "{{ .namespace }}-{{ .middlewareName }}@kubernetescrd"
+spec:
+  ingressClassName: {{ $ingress.className }}
+  tls:
+    - hosts:
+        - {{ $ingress.host | quote }}
+      secretName: {{ (index $ingress.tls 0).secretName }}
+  rules:
+    - host: {{ $ingress.host | quote }}
+      http:
+        paths:
+          - path: {{ .path }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .serviceName }}
+                port:
+                  number: {{ .servicePort }}
+---
+{{- end }}
+{{- end }}

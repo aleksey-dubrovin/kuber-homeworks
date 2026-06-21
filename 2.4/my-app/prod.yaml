@@ -1,0 +1,13 @@
+# Конфигурация для production окружения
+releaseName: app-prod
+namespace: prod
+replicaCount: 2
+image:
+  tag: "2.4.67"
+ingress:
+  paths:
+    - path: /prod
+      serviceName: app-prod-my-app
+      servicePort: 80
+      namespace: prod
+      middlewareName: strip-prod-prefix

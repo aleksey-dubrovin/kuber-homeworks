@@ -1,0 +1,21 @@
+{{- if .Values.configmap.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "my-app.fullname" . }}
+  labels:
+    {{- include "my-app.labels" . | nindent 4 }}
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Привет из Helm!</title>
+    </head>
+    <body>
+      <h1>Это приложение развернуто через Helm!</h1>
+      <p>Версия: {{ .Values.image.tag }}</p>
+    </body>
+    </html>
+{{- end }}
