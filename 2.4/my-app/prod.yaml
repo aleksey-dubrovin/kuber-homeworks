@@ -3,7 +3,7 @@ releaseName: app-prod
 namespace: prod
 replicaCount: 2
 image:
-  tag: "2.4.67"
+  tag: "2.4.62"
 ingress:
   paths:
     - path: /prod
