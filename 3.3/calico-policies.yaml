@@ -1,0 +1,35 @@
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: backend-policy
+  namespace: app
+spec:
+  types:
+  - Ingress
+  ingress:
+  - action: Allow
+    protocol: TCP
+    source:
+      selector: app == 'frontend'
+    destination:
+      ports:
+      - 80
+  selector: app == 'backend'
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: cache-policy
+  namespace: app
+spec:
+  types:
+  - Ingress
+  ingress:
+  - action: Allow
+    protocol: TCP
+    source:
+      selector: app == 'backend'
+    destination:
+      ports:
+      - 80
+  selector: app == 'cache'
